@@ -23,11 +23,13 @@ app.get('/', function(req, res) {
 
 app.use(express.static(__dirname + '/public'));
 
+/*
+portion of code that will recieve a message from  the client and send it to all the others. 
+Every socket.io application begins with a  'connection' handler.
 
-// portion of code that will recieve a message from 
-// the client and send it to all the others. 
-// Every socket.io application begins with a 
-// 'connection' handler
+the object 'socket' is passed to the handler is the socket of the client.
+
+*/
 
 io.sockets.on('connection', function(socket) {
     socket.emit('message', { message: 'welcome to the chat' });
