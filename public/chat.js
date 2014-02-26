@@ -6,7 +6,12 @@ window.onload = function() {
     var sendButton = document.getElementById("send");
     var content = document.getElementById("content");
 
-    /* 
+    /* Logic is wrapped in .onload to ensure all mark, external JS is fully loaded.
+     * all messages are stored in an array
+     * Similar to the backend, we bind a function, which will react to the socket.
+     * The socket event is named 'message'. When an event occurs, we expect to
+     * recieve an object, data, with the property message. 
+     * That message gets stored in messages and content div gets updated.
      */
 
 
