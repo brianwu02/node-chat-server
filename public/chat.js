@@ -5,6 +5,7 @@ window.onload = function() {
     var field = document.getElementById("field");
     var sendButton = document.getElementById("send");
     var content = document.getElementById("content");
+    var name = document.getElementById("name");
 
     /* Logic is wrapped in .onload to ensure all mark, external JS is fully loaded.
      * all messages are stored in an array
@@ -14,13 +15,13 @@ window.onload = function() {
      * That message gets stored in messages and content div gets updated.
      */
 
-
     socket.on('message', function(data) {
         if (data.message) {
-            messages.push(data.message);
+            messages.push(data);
             var html = '';
             for(var i=0; i<messages.length; i++) {
-                html += messages[i] + '<br />';
+                html += '<b>' + (messages[i].username ? messages[i].username : 'Server') + ': </b>';
+                html += messages[i].message + '<br />';
             }
             content.innerHTML = html;
         } else {
@@ -28,9 +29,20 @@ window.onload = function() {
         }
     });
 
-    sendButton.onclick = function() {
-        var text = field.value;
-        socket.emit('send', { message: text });
+    sendButton.onclick = sendMessage = function() {
+        if (name.value == "") {
+            alert("please type in your name!");
+        } else {
+            var text = field.value;
+            socket.emit('send', { message: text, username: name.value });
+            field.value = "";
+        }
     };
 }
-
+$(document).ready(function() {
+    $("#field").keyup(function(e) {
+        if(e.keyCode == 13) {
+            sendMessage();
+        }
+    });
+});
