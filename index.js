@@ -1,11 +1,6 @@
 var express = require('express');
 var app = express();
-
 var port = 8000;
-
-app.get('/', function(req, res) {
-    res.send("It works!");
-});
 
 // we pass the expressJS server to socket.io. in effect, 
 // our real time communication will still happen on same port.
@@ -20,6 +15,11 @@ app.engine('jade', require('jade').__express);
 app.get('/', function(req, res) {
     res.render("page");
 });
+
+app.get('/', function(req, res) {
+    res.send("It works!");
+});
+
 
 app.use(express.static(__dirname + '/public'));
 

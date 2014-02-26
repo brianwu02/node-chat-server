@@ -32,5 +32,5 @@ window.onload = function() {
         var text = field.value;
         socket.emit('send', { message: text });
     };
-};
+}
 
