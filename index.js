@@ -5,6 +5,13 @@ var port = 8000;
 // we pass the expressJS server to socket.io. in effect, 
 // our real time communication will still happen on same port.
 var io = require('socket.io').listen(app.listen(port));
+/* log levels:
+ *  0 - error
+ *  1 - warn
+ *  2 - info
+ *  3 - debug
+ */
+io.set('log level', 2);
 
 console.log('listening on port: ' + port);
 
