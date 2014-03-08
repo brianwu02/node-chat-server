@@ -11,7 +11,7 @@ var io = require('socket.io').listen(app.listen(port));
  *  2 - info
  *  3 - debug
  */
-io.set('log level', 3);
+io.set('log level', 2);
 app.set('views', __dirname + '/template');
 app.set('view engine', 'jade');
 app.engine('jade', require('jade').__express);
@@ -25,10 +25,13 @@ Every socket.io application begins with a  'connection' handler.
 
 the object 'socket' is passed to the handler is the socket of the client.
 */
-io.sockets.on('connection', function(socket) {
-    socket.emit('message', { message: 'welcome to the chat' });
-    socket.on('send', function(data) {
-        io.sockets.emit('message', data);
-    });
-});
 console.log('listening on port: ' + port);
+
+io.sockets.on('connection', function(socket) {
+  socket.emit('message', {
+    message: "welcome to the chat" 
+  });
+  socket.on('send', function(data) {
+    io.sockets.emit('message', data);
+  });
+});
